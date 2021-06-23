@@ -35,6 +35,10 @@ function generatePassword(){
   if(specialChars){
     combineArray = combineArray.concat(specialDataSet);
   }
+  if (!lowerChars && !upperChars && !numChars && !specialChars){
+    alert("Must choose at least 1 parameter");
+    return " ";
+  }
   // generate random combination of array
   var myIndex = combineArray.length;
   var randomIndex;
