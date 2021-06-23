@@ -6,6 +6,7 @@ var lowerDataSet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", 
 var upperDataSet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var numDataSet = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 var specialDataSet = [" ", "!", "\"", "#", "$", "%", "&", "\'", "(", ")", "*", "+", ",", "-", ".", "/"];
+var combineArray = [];
 var myPassword = [];
 
 // generator function
@@ -18,41 +19,42 @@ function generatePassword(){
   var numChars = confirm("Do you want to include numerical characters?");
   var specialChars = confirm("Do you want to include special characters?");
   
- 
-  //creation of user input based character set array
-  if (lowerChars || upperChars || numChars || specialChars){
-    if (lowerChars){
-      myPassword = myPassword.concat(lowerDataSet);      
-    }    
-    if (upperChars){
-      myPassword = myPassword.concat(lowerDataSet);     
-    }    
-    if (numChars){
-      myPassword = myPassword.concat(numDataSet);     
-    }    
-    if (specialChars){
-      myPassword = myPassword.concat(specialDataSet); 
-    }
-
-    //randomize array
-    var randomIndex;
-    var currentIndex = myPassword.length;
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;    
-      [myPassword[currentIndex], myPassword[randomIndex]] = [myPassword[randomIndex], myPassword[currentIndex]];
-    }      
-    
-    //cut array do desired length
+  //create array based on input
+  if(lowerChars){
+    combineArray = combineArray.concat(lowerDataSet);
   }
+  if(upperChars){
+    combineArray = combineArray.concat(upperDataSet);
+  }
+  if(numChars){
+    combineArray = combineArray.concat(numDataSet);
+  }
+  if(specialChars){
+    combineArray = combineArray.concat(specialDataSet);
+  }
+  // generate random combination of array
+  var myIndex = combineArray.length;
+  var randomIndex;
 
+  while (0 !== myIndex) {
+    randomIndex = Math.floor(Math.random() * myIndex);
+    myIndex--;
+    [combineArray[myIndex], combineArray[randomIndex]] = [combineArray[randomIndex], combineArray[myIndex]];
+  }  
+  combineArray = combineArray.concat(combineArray); //insures theres enough values for longer passwords
+
+  myPassword = combineArray.slice(0, passlengthInt);
+
+  return myPassword.join(""); //removes commas from password
   console.log(passlength);
   console.log(passlengthInt);
   console.log(lowerChars);
   console.log(upperChars);
   console.log(numChars);
   console.log(specialChars);
+  console.log(combineArray);
   console.log(myPassword);
+  
 }
 // Write password to the #password input
 function writePassword() {
