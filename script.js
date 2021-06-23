@@ -13,6 +13,9 @@ var myPassword = [];
 function generatePassword(){
   // get user data from prompt and confirms
   var passlength = prompt("Choose a password length with a numerical value between 8 and 128", "8");
+  while (passlength < 8 || passlength >128 || isNaN(passlength)){
+    passlength = prompt("Must be a digit between 8 and 128")
+  }
   var passlengthInt = parseInt(passlength);
   var lowerChars = confirm("Do you want to include lower case characters?");
   var upperChars = confirm("Do you want to include upper case characters?");
@@ -46,15 +49,6 @@ function generatePassword(){
   myPassword = combineArray.slice(0, passlengthInt);
 
   return myPassword.join(""); //removes commas from password
-  console.log(passlength);
-  console.log(passlengthInt);
-  console.log(lowerChars);
-  console.log(upperChars);
-  console.log(numChars);
-  console.log(specialChars);
-  console.log(combineArray);
-  console.log(myPassword);
-  
 }
 // Write password to the #password input
 function writePassword() {
