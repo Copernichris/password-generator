@@ -7,6 +7,7 @@ var upperDataSet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", 
 var numDataSet = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 var specialDataSet = [" ", "!", "\"", "#", "$", "%", "&", "\'", "(", ")", "*", "+", ",", "-", ".", "/"];
 var myPassword = [];
+
 // generator function
 function generatePassword(){
   // get user data from prompt and confirms
@@ -17,13 +18,33 @@ function generatePassword(){
   var numChars = confirm("Do you want to include numerical characters?");
   var specialChars = confirm("Do you want to include special characters?");
   
-  //array of chars to allow for randomization later
-  var randomChars = [lowerChars, upperChars, numChars, specialChars];
+ 
+  //creation of user input based character set array
+  if (lowerChars || upperChars || numChars || specialChars){
+    if (lowerChars){
+      myPassword = myPassword.concat(lowerDataSet);      
+    }    
+    if (upperChars){
+      myPassword = myPassword.concat(lowerDataSet);     
+    }    
+    if (numChars){
+      myPassword = myPassword.concat(numDataSet);     
+    }    
+    if (specialChars){
+      myPassword = myPassword.concat(specialDataSet); 
+    }
 
-  //creation based on input
-  // if (lowerChars || upperChars || numChars || specialChars){
-  //   return;
-  // }
+    //randomize array
+    var randomIndex;
+    var currentIndex = myPassword.length;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;    
+      [myPassword[currentIndex], myPassword[randomIndex]] = [myPassword[randomIndex], myPassword[currentIndex]];
+    }      
+    
+    //cut array do desired length
+  }
 
   console.log(passlength);
   console.log(passlengthInt);
@@ -31,6 +52,7 @@ function generatePassword(){
   console.log(upperChars);
   console.log(numChars);
   console.log(specialChars);
+  console.log(myPassword);
 }
 // Write password to the #password input
 function writePassword() {
